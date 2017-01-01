@@ -1,0 +1,209 @@
+<div class="col-md-12" ng-controller="PlayerCtrl">
+    <div class="row">
+        <div class="col-md-3 col-sm-12">
+            <div class="player-detail">
+                <div class="row">
+                    <div
+                        class="col-md-12 col-md-offset-0 col-sm-offset-3 col-sm-6 col-lg-offset-0 col-xs-offset-1 col-xs-10">
+                        <a href="#" class="thumbnail">
+                            <img src="app\images\jonathan-dodsworth.png" alt="...">
+                        </a>
+                        <h3>{{player.firstName}}&nbsp;{{player.lastName}}</h3>
+                        <dl class="dl-horizontal">
+                            <dt>Date of Birth</dt>
+                            <dd ng-bind="player.dateOfBirth | amDateFormat: 'DD - MM - YYYY'"></dd>
+                            <dt>Place Of Birth</dt>
+                            <dd ng-bind="player.placeOfBirth"></dd>
+                            <dt>Age</dt>
+                            <dd ng-bind="player.age"></dd>
+                            <dt>Height</dt>
+                            <dd>{{player.height}}m</dd>
+                            <dt>Nationality</dt>
+                            <dd ng-bind="player.nationality"></dd>
+                            <dt>Position</dt>
+                            <dd ng-bind="player.position"></dd>
+                            <dt>Foot</dt>
+                            <dd ng-bind="player.foot"></dd>
+                            <dt>Sport's Agent</dt>
+                            <dd ng-bind="player.agent"></dd>
+                            <dt>Debut</dt>
+                            <dd ng-bind="player.debut | amDateFormat: 'DD - MM - YYYY'"></dd>
+                            <dt>Outfitter</dt>
+                            <dd ng-bind="player.outfitter"></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 col-sm-12" ng-init="showGraph = false">
+            <div class="player-stats m-b-xxl">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h5>Statistics</h5>
+                        <uib-tabset active="active">
+                            <uib-tab index="0" select="$index = 0" heading="Over All">
+                                <div class="row">
+                                    <div class="col-sm-3 col-xs-6 stat-counts">
+                                        <h6>Innings</h6>
+                                        <div class="row">
+                                            <div class="col-xs-6 text-right">
+                                                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="col-xs-6 text-left">
+                                                <span class="count">47</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-xs-6 stat-counts">
+                                        <h6>Scores</h6>
+                                        <div class="row">
+                                            <div class="col-xs-6 text-right">
+                                                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="col-xs-6 text-left">
+                                                <span class="count">7</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-xs-6 stat-counts">
+                                        <h6>Wins</h6>
+                                        <div class="row">
+                                            <div class="col-xs-6 text-right">
+                                                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="col-xs-6 text-left">
+                                                <span class="count">32</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-xs-6 stat-counts">
+                                        <h6>Looses</h6>
+                                        <div class="row">
+                                            <div class="col-xs-6 text-right">
+                                                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="col-xs-6 text-left">
+                                                <span class="count">7</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-show="showGraph">
+                                    <div class="col-md-offset-2 col-md-8">
+                                        <canvas id="bar" class="chart chart-bar"
+                                                chart-data="statdata" chart-labels="labels" chart-colors="colors"
+                                                chart-series="series" chart-options="chartOptions">
+                                            chart-series="series"
+                                        </canvas>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <a ng-click="showGraph = !showGraph" class="pointer-cursor">{{showGraph ? 'Show
+                                            Less' : 'Show more'}}</a>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab index="1" select="$index = 1" heading="Runs">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-offset-2 col-sm-8 m-t-xxl">
+                                        <canvas id="bar" class="chart chart-bar"
+                                                chart-data="runsData" chart-options="chartOptions"
+                                                chart-labels="runsLabels" chart-series="['Runs']">
+                                        </canvas>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab index="2" select="$index = 2" heading="Matches">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-offset-2 col-sm-8 m-t-xxl">
+                                        <canvas id="bar" class="chart chart-bar"
+                                                chart-data="matchesData" chart-options="chartOptions"
+                                                chart-labels="runsLabels" chart-series="['Matches']">
+                                        </canvas>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                        </uib-tabset>
+                    </div>
+                </div>
+            </div>
+            <div class="player-stats m-b-xxl">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h5>Schedule</h5>
+                        <uib-tabset active="activeTabs">
+                            <uib-tab index="0" select="$index = 0" heading="Tasks">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default" ng-repeat="row in scheduleData">
+                                        <div class="panel-heading" role="tab" id="{{'headingOne' + row._id}}">
+                                            <div class="row collapsed pointer-cursor" data-toggle="collapse"
+                                                 data-parent="#accordion" href="{{'#collapseOne' + row._id}}"
+                                                 aria-expanded="false" aria-controls="{{'collapseOne' + row._id}}">
+                                                <div class="col-xs-3">
+                                                    {{row.duration}}
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    {{row.seriesName}}
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    {{row.location}}
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    {{row.runs}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div id="{{'collapseOne'+ row._id}}" class="panel-collapse collapse"
+                                             role="tabpanel" aria-labelledby="{{'headingOne'+ row._id}}">
+                                            <div class="panel-body">
+                                                <div class="col-sm-8">
+                                                    <canvas id="bar" class="chart chart-bar"
+                                                            chart-data="row.runsData" chart-labels="row.matchDates"
+                                                            chart-colors="colors"
+                                                            chart-series="matchTypes" chart-options="chartOptions">
+                                                    </canvas>
+                                                </div>
+
+                                                <div class="col-sm-4 col-xs-offset-2 col-lg-offset-0 col-xs-8">
+                                                    <canvas id="doughnut" class="chart chart-doughnut"
+                                                            chart-data="row.counts" chart-labels="matchTypes"
+                                                            chart-colors="colors">
+                                                    </canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab index="1" select="$index = 1" heading="Evaluation Report">
+                                <div class="row">
+                                    <div class="col-sm-12 m-t-xxl">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non porta
+                                            augue. Donec vel nunc dictum, tempor est ut, euismod purus. Aliquam est
+                                            lorem, maximus vel placerat nec, blandit vel mauris. Aliquam efficitur risus
+                                            odio. Integer vehicula condimentum lectus eget molestie. Nam gravida metus
+                                            nec nibh tempor, in cursus tortor egestas. Maecenas in quam lacus. Donec
+                                            maximus semper justo.</p>
+                                        <p>Fusce porttitor condimentum arcu ac consequat. Sed egestas arcu tortor, non
+                                            molestie tellus porttitor nec. In ac convallis ante, quis hendrerit tortor.
+                                            Curabitur tempus turpis eu purus pretium pretium. Donec massa enim,
+                                            pellentesque vitae finibus sed, suscipit ut lorem. Etiam tristique est id
+                                            lectus pulvinar commodo. Etiam et mollis libero, a tincidunt justo. Sed
+                                            cursus turpis ipsum, quis blandit ipsum consequat sed. Pellentesque habitant
+                                            morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                                            Etiam quis ornare arcu. Donec in erat pellentesque, tempus massa a,
+                                            fringilla mi. Nullam in nisl ullamcorper lacus consectetur mattis. In hac
+                                            habitasse platea dictumst.</p>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                        </uib-tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
